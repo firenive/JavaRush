@@ -15,15 +15,20 @@ public class HexConverter {
         String hexNumber = "";
         if (decimalNumber <= 0) return "";
         while (decimalNumber != 0) {
-            hexNumber = HEX.ind
+            hexNumber = HEX.charAt(decimalNumber % 16) + hexNumber;
+            decimalNumber = decimalNumber / 16;
         }
-        return null;
+        return hexNumber;
     }
 
     public static int toDecimal(String hexNumber) {
         //напишите тут ваш код
+        int decimalNumber = 0;
         if (hexNumber == null || hexNumber.equals("")) return 0;
+        for (int i = 0; i < hexNumber.length(); i++) {
+            decimalNumber = 16 * decimalNumber + HEX.indexOf(hexNumber.charAt(i));
+        }
 
-        return 0;
+        return decimalNumber;
     }
 }
