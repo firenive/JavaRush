@@ -1,25 +1,26 @@
 package level13;
 
+import java.io.IOException;
+import java.lang.reflect.Array;
+import java.nio.file.DirectoryStream;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Test {
-    public static void main(String[] args) {
-        String pathSource = "/home/max/TestCopy/Source/Boston.jpg";
-        String pathDest = "/home/max/TestCopy/Dest/secretary.jpg";
-        try (Scanner scanner = new Scanner(System.in);
-             var inputStream = Files.newInputStream(Paths.get(pathSource));
-             var outputStream = Files.newOutputStream(Paths.get(pathDest))
-        ) {
-            int size = 1024;
-            byte[] buffer = new byte[size];
-            while (inputStream.available() > 0) {
-                int read = inputStream.read();
-                outputStream.write(buffer, size, read);
+    public static void main(String[] args) throws IOException {
+        Scanner scanner = new Scanner(System.in);
+        Path sourceDirectory = Path.of(scanner.nextLine());
+        Path targetDirectory = Path.of(scanner.nextLine());
+        try (DirectoryStream<Path> files = Files.newDirectoryStream(sourceDirectory)) {
+            for (Path path : files) {
+                if (Files.isRegularFile(path)) {
+                    Path resolve = targetDirectory.resolve(path.getFileName());
+                    Files.copy(path, resolve);
+                }
             }
-        } catch (Exception e) {
-            System.out.println("Something went wrong : " + e);
         }
     }
 }
