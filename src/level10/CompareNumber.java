@@ -2,10 +2,12 @@ package level10;
 
 public class CompareNumber {
     public static void main(String[] args) {
+/*
         compare('a', 'a');
         compare('a', 'б');
         compare('р', 'в');
         compare('ы', 'ы');
+*/
     }
 
     public static void compare(Character first, Character second) {
